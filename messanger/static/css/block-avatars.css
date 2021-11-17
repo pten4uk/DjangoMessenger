@@ -1,0 +1,66 @@
+.avatars {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 150px;
+    bottom: 80px;
+
+    background-color: rgba(3, 53, 146, 0.8);
+
+/*     box-shadow: 1px 0 5px rgba(0, 0, 0, .1); */
+
+    z-index: 2;
+    overflow-y: auto;
+    overflow-x: hidden;
+    direction: rtl;
+}
+
+.avatar-block {
+    list-style: none;
+    height: 130px;
+    width: 100%;
+/*     transition: background-color .2s; */
+}
+
+.avatar-circle {
+    position: relative;
+    top: 15px;
+    bottom: 15px;
+    display: flex;
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+
+/*     border: 3px solid rgba(255, 255, 255, 0.8); */
+    border-radius: 50%;
+
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.8);
+    overflow: hidden;
+
+    transition: transform .4s, box-shadow .2s;
+}
+
+.avatar-circle img {
+    -webkit-user-drag: none;
+    width: auto;
+    margin: 0 auto;
+}
+
+.avatar-circle:hover {
+    box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.avatar-block.selected {
+    position: relative;
+    background-color: rgb(235 252 255);
+    left: 7px;
+    border-top-left-radius: 45% 50%;
+    border-bottom-left-radius: 45% 50%;
+
+}
+
+.avatar-block.selected .avatar-circle {
+    transform: scale(1.15, 1.15);
+    margin-left: 15px;
+    box-shadow: 0 0 0 5px rgba(44, 77, 139, 0.8);
+}
