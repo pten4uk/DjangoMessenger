@@ -1,6 +1,6 @@
 `use strict`;
 
-//------------------------EventListenerForMessages----------------------------
+//------------------------ELForMessages----------------------------
 const btnSend = document.querySelector(`.btn-send`);
 const textarea = document.querySelector(`.textarea`);
 const selfMessage = document.querySelector(`.self-message`);
@@ -39,16 +39,45 @@ textarea.addEventListener(`keyup`, event => {
 //End------------------------ELForMessages----------------------------
 
 //----------------------------------ELForAvatars---------------------------------
+let currentUserId = document.querySelector(`#current-user`).dataset.userId;
+
+
+let dynamicChangeSelect = avatarCircle => {
+    avatarCircle.parentElement.classList.toggle(`selected`)
+    for (let elem of avatarCircles) {
+
+        if (elem != avatarCircle && 
+            avatarCircle.parentElement.classList.contains(`selected`)) {
+            elem.parentElement.classList.remove(`selected`)
+        }
+    }
+}
+
+let getListMessages = (obj) => {
+    let messages_list = [];
+
+    for (let message in obj.messages) {
+        messages_list.push(obj.messages[message]);
+    }
+    return messages_list;
+}
+
+
 const avatarCircles = document.querySelectorAll(`.avatar-circle`);
 for (let avatarCircle of avatarCircles) {
-    avatarCircle.addEventListener(`click`, () => {
-        avatarCircle.parentElement.classList.toggle(`selected`)
-        for (let elem of avatarCircles) {
+    avatarCircle.addEventListener(`click`, async () => {
+        dynamicChangeSelect(avatarCircle);
 
-            if (elem != avatarCircle && 
-                avatarCircle.parentElement.classList.contains(`selected`)) {
-                elem.parentElement.classList.remove(`selected`)
-            }
+        let userId = avatarCircle.dataset.userId;
+        let response_list = await getChatId(currentUserId, userId);
+        let response = response_list['0'];
+
+        if (response) {
+
+            let chatId = response.id;
+
+            let messages = getListMessages(response);
+            console.log(messages);
         }
     })
 }

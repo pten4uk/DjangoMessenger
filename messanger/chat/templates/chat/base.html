@@ -16,10 +16,17 @@
         <div class="main-block">
 
             <div class="avatars">
-                <li class="avatar-block"><div class="avatar-circle"><img src="photo/1.jpg" alt=""></div></li>
-                <li class="avatar-block"><div class="avatar-circle"><img src="photo/2.jpg" alt=""></div></li>
-                <li class="avatar-block"><div class="avatar-circle"><img src="photo/3.jpg" alt=""></div></li>
-                <li class="avatar-block"><div class="avatar-circle"><img src="photo/4.jpg" alt=""></div></li>
+                <div id="current-user" data-user-id="{{ user.id }}" hidden></div>
+                {% for user in all_users %}
+                    <li class="avatar-block">
+                        <div class="avatar-circle" data-user-id="{{ user.id }}">
+                            <img src="
+                                {% if user.photo %}
+                                    {{ user.photo.url }}
+                                {% endif %}" alt="">
+                        </div>
+                    </li>
+                {% endfor %}
             </div>
 
             <div class="messages">
@@ -47,7 +54,8 @@
         </div>
     </div>
 
-    <script src="{% static 'js/javascript.js' %}"></script>
+    <script src="{% static 'js/userInterface.js' %}"></script>
     <script src="{% static 'js/server.js' %}"></script>
+    <script src="{% static 'js/websocket.js' %}"></script>
 </body>
 </html>
