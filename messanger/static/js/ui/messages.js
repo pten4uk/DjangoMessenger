@@ -3,7 +3,6 @@
 const btnSend = document.querySelector(`.btn-send`);
 const textarea = document.querySelector(`.textarea`);
 const selfMessage = document.querySelector(`.self-message`);
-const textareaMessages = document.querySelector(`.textarea-messages`);
 const blockMessages = document.querySelector(`.block-messages`)
 
 
@@ -48,14 +47,32 @@ let addMessagesInArea = messages => {
 }
 
 btnSend.addEventListener(`click`, elem => {
+    let textareaMessages = document.querySelector(`.textarea-messages`);
+    let newSelfMessage = document.createElement(`div`);
+
     if (textarea.textContent.trim()) {
-        let newSelfMessage = document.createElement(`div`);
-        newSelfMessage.classList.add(`block-message`)
-        let newSelfMessageHTML = `<div class="self-message">
-                                    ${textarea.textContent}
-                                </div>`;
-        newSelfMessage.innerHTML = newSelfMessageHTML;
-        textareaMessages.append(newSelfMessage);
+        if (!textareaMessages) {
+            newSelfMessage.className = `textarea-messages`;
+            let newSelfMessageHTML = `<div class="block-message">
+                                        <div class="self-message">
+                                            ${textarea.textContent}
+                                        </div>
+                                    </div>`;
+            newSelfMessage.innerHTML = newSelfMessageHTML;
+            document.querySelector(`#empty-textarea`).remove()
+            blockMessages.append(newSelfMessage);
+
+            textareaMessages = newSelfMessage
+        } else {
+            textareaMessages.insertAdjacentHTML(
+                `beforeend`, 
+                `<div class="block-message">
+                    <div class="self-message">
+                        ${textarea.textContent}
+                    </div>
+                </div>`
+                );
+        }
 
 
         textarea.textContent = ``;

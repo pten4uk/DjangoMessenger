@@ -52,7 +52,7 @@
 
 .avatar-block.selected {
     position: relative;
-    background-color: rgb(235 252 255);
+    background-color: rgb(240, 246, 247);
     left: 7px;
     border-top-left-radius: 45% 50%;
     border-bottom-left-radius: 45% 50%;
