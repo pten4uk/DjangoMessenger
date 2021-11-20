@@ -1,14 +1,12 @@
 from django.contrib.auth import get_user_model
 from django_filters import rest_framework as filters
 
-from chat.models import Chat
+from chat.models import Message
 
 User = get_user_model()
 
 
-class ChatFilter(filters.FilterSet):
-    users = filters.ModelMultipleChoiceFilter(queryset=User.objects.all())
-
+class MessageFilter(filters.FilterSet):
     class Meta:
-        model = Chat
-        fields = ['users']
+        model = Message
+        fields = ['chat']

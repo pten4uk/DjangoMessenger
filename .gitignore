@@ -2,3 +2,4 @@ __pycache__/
 /venv/
 .idea/
 /messanger/db.sqlite3
+/messanger/chat/migrations/

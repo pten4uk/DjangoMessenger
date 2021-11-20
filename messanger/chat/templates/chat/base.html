@@ -40,12 +40,14 @@
                 
                 <div class="block-messages">
                     <div class="textarea-messages">
-                        <div class="block-message">
-                            <div class="other-message">Привет</div>
-                        </div>
-                        <div class="block-message">
-                            <div class="self-message">Привет</div>
-                        </div>
+                        {% comment %}
+                            <div class="block-message">
+                                <div class="other-message">Привет</div>
+                            </div>
+                            <div class="block-message">
+                                <div class="self-message">Привет</div>
+                            </div>
+                        {% endcomment %}
                     </div>
                 </div>
 
@@ -54,7 +56,8 @@
         </div>
     </div>
 
-    <script src="{% static 'js/userInterface.js' %}"></script>
+    <script src="{% static 'js/ui/messages.js' %}"></script>
+    <script src="{% static 'js/ui/avatars.js' %}"></script>
     <script src="{% static 'js/server.js' %}"></script>
     <script src="{% static 'js/websocket.js' %}"></script>
 </body>
