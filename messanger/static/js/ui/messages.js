@@ -46,41 +46,51 @@ let addMessagesInArea = messages => {
     else addHTMLforListMessages(messages);
 }
 
-btnSend.addEventListener(`click`, elem => {
+let addReceivedMessageToHTML = (data, to) => {
     let textareaMessages = document.querySelector(`.textarea-messages`);
     let newSelfMessage = document.createElement(`div`);
+    console.log(to);
+
+    if (!textareaMessages) {
+        newSelfMessage.className = `textarea-messages`;
+        let newSelfMessageHTML = `<div class="block-message">
+                                    <div class="${to}-message">
+                                        ${data.message}
+                                    </div>
+                                </div>`;
+        newSelfMessage.innerHTML = newSelfMessageHTML;
+        document.querySelector(`#empty-textarea`).remove()
+        blockMessages.append(newSelfMessage);
+
+        textareaMessages = newSelfMessage
+    } else {
+        textareaMessages.insertAdjacentHTML(
+            `beforeend`, 
+            `<div class="block-message">
+                <div class="${to}-message">
+                    ${data.message}
+                </div>
+            </div>`
+            );
+    }
+
+    textareaMessages.scrollTop = textareaMessages.scrollHeight;
+}
+
+let btnSendEventListener = (socket) => {
+    btnSend.addEventListener(`click`, elem => {
 
     if (textarea.textContent.trim()) {
-        if (!textareaMessages) {
-            newSelfMessage.className = `textarea-messages`;
-            let newSelfMessageHTML = `<div class="block-message">
-                                        <div class="self-message">
-                                            ${textarea.textContent}
-                                        </div>
-                                    </div>`;
-            newSelfMessage.innerHTML = newSelfMessageHTML;
-            document.querySelector(`#empty-textarea`).remove()
-            blockMessages.append(newSelfMessage);
-
-            textareaMessages = newSelfMessage
-        } else {
-            textareaMessages.insertAdjacentHTML(
-                `beforeend`, 
-                `<div class="block-message">
-                    <div class="self-message">
-                        ${textarea.textContent}
-                    </div>
-                </div>`
-                );
-        }
-
+        socket.send(JSON.stringify({
+            'user_id': currentUserId,
+            'message': textarea.textContent
+        }))
 
         textarea.textContent = ``;
-
-        textareaMessages.scrollTop = textareaMessages.scrollHeight
     }
     textarea.focus();
-})
+}) 
+}
 
 let shift = false;
 textarea.addEventListener(`keydown`, event => {

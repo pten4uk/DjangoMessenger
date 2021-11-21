@@ -27,8 +27,16 @@ for (let avatarCircle of avatarCircles) {
         if (chatId) {
             let messages = await getListMessages(chatId);
             addMessagesInArea(messages);
+
             if (!avatarCircle.parentElement.classList.contains(`selected`)) {
                 blockMessages.innerHTML = ``;
+            } else {
+                let socket = chatSocket(chatId);
+                socketEventListeners(socket);
+                socket.onopen = (e) => {
+                    console.log(`Соединение установлено`);
+                    btnSendEventListener(e.target);
+                }
             }
         }
     })

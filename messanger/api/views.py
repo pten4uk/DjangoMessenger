@@ -10,7 +10,7 @@ from chat.models import Message, Chat
 
 class GetMessageAPIView(ListAPIView):
     serializer_class = MessageSerializer
-    queryset = Message.objects.order_by('-datetime')
+    queryset = Message.objects.order_by('datetime')
     filter_backends = [filters.DjangoFilterBackend]
     filterset_class = MessageFilter
 
@@ -18,10 +18,9 @@ class GetMessageAPIView(ListAPIView):
 class GetChatAPIView(APIView):
     def get_queryset(self):
         users = self.request.GET.getlist('users')
-
         if users:
             if len(set(users)) == 1:
-                return Chat.objects.filter(pk=users[0], to_self=True).first(), False
+                return Chat.objects.filter(users=users[0], to_self=True).first(), False
 
             return Chat.objects.filter(users=users[0]).filter(users=users[1]).first(), False
         return Chat.objects.all(), True
