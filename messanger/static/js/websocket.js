@@ -1,24 +1,25 @@
 `use strict`;
 
-let chatSocket = chatId => {
-    return new WebSocket(`ws://${window.location.host}/ws/chat/${chatId}/`);
-};
+let chatSocket = new WebSocket(`ws://${window.location.host}/connect/`);
 
-let socketEventListeners = (socket) => {
-    socket.onclose = () => {
-        console.log(`Соединение закрыто`);
-    }
-    socket.onerror = (e) => {
-        console.log(`Ошибка соединения ${e}`);
-    }
-    socket.onmessage = (e) => {
-        console.log('Новое сообщение');
-        data = JSON.parse(e.data);
-        console.log(data);
-        let to = (id => {
-            if (data.user_id == id) return `self`;
-            return `other`;
-        })(currentUserId);
-        addReceivedMessageToHTML(data, to);
-    }
+chatSocket.onopen = (e) => {
+    console.log(`Соединение установлено`);
+    btnSendEventListener(e.target);
+}
+
+chatSocket.onclose = () => {
+    console.log(`Соединение закрыто`);
+}
+chatSocket.onerror = (e) => {
+    console.log(`Ошибка соединения ${e}`);
+}
+chatSocket.onmessage = (e) => {
+    console.log('Новое сообщение');
+    data = JSON.parse(e.data);
+    console.log(data);
+    let to = (id => {
+        if (data.current_user == id) return `self`;
+        else if (data.other_user == id) return `other`;
+    })(currentUserId);
+    processNewMessage(data, selectedChatId, to);
 }

@@ -1,6 +1,8 @@
 `use strict`;
 
 let currentUserId = document.querySelector(`#current-user`).dataset.userId;
+let otherUserId;
+let selectedChatId;
 
 
 let dynamicChangeSelect = avatarCircle => {
@@ -21,22 +23,16 @@ for (let avatarCircle of avatarCircles) {
     avatarCircle.addEventListener(`click`, async () => {
         dynamicChangeSelect(avatarCircle);
 
-        let userId = avatarCircle.dataset.userId;
-        let chatId = await getChatId(currentUserId, userId);
+        otherUserId = avatarCircle.dataset.userId;
+        selectedChatId = await getChatId(currentUserId, otherUserId);
 
-        if (chatId) {
-            let messages = await getListMessages(chatId);
+        if (selectedChatId) {
+            let messages = await getListMessages(selectedChatId);
             addMessagesInArea(messages);
 
             if (!avatarCircle.parentElement.classList.contains(`selected`)) {
+                selectedChatId = null;
                 blockMessages.innerHTML = ``;
-            } else {
-                let socket = chatSocket(chatId);
-                socketEventListeners(socket);
-                socket.onopen = (e) => {
-                    console.log(`Соединение установлено`);
-                    btnSendEventListener(e.target);
-                }
             }
         }
     })

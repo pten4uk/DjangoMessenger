@@ -46,10 +46,9 @@ let addMessagesInArea = messages => {
     else addHTMLforListMessages(messages);
 }
 
-let addReceivedMessageToHTML = (data, to) => {
+let addNewMessageToHTML = (data, to) => {
     let textareaMessages = document.querySelector(`.textarea-messages`);
     let newSelfMessage = document.createElement(`div`);
-    console.log(to);
 
     if (!textareaMessages) {
         newSelfMessage.className = `textarea-messages`;
@@ -73,8 +72,17 @@ let addReceivedMessageToHTML = (data, to) => {
             </div>`
             );
     }
-
     textareaMessages.scrollTop = textareaMessages.scrollHeight;
+}
+
+let processNewMessage = (data, selectedChat, to) => {
+    if (data.current_user == currentUserId) {
+        addNewMessageToHTML(data, 'self');
+    } else if (data.other_user == currentUserId) {
+        if (selectedChat == data.chat_id) {
+            addNewMessageToHTML(data, 'other');
+        }
+    }
 }
 
 let btnSendEventListener = (socket) => {
@@ -82,7 +90,9 @@ let btnSendEventListener = (socket) => {
 
     if (textarea.textContent.trim()) {
         socket.send(JSON.stringify({
-            'user_id': currentUserId,
+            'current_user': currentUserId,
+            'other_user': otherUserId,
+            'chat_id': selectedChatId,
             'message': textarea.textContent
         }))
 
