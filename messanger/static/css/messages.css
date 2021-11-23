@@ -122,7 +122,7 @@
 
 .textarea-messages {
     position: absolute;
-    width: 100%;
+    top: 0;
     max-height: 100%;
     bottom: 10px;
     overflow: hidden;
@@ -184,4 +184,68 @@
     background-color: rgba(3, 53, 146, 0.8);
     color: white;
     margin-left: 30px;
+}
+
+.not-block {
+    position: fixed;
+    left: 5px;
+    bottom: 5px;
+
+    width: 250px;
+    height: 120px;
+    border: 1px solid;
+    border-radius: 10px 10px 0 0;
+
+    background-color: white;
+
+    overflow: hidden;
+    z-index: 10;
+}
+
+.not-header {
+    position: absolute;
+    top: 0;
+
+    height: 40%;
+    width: 100%;
+
+    border-bottom: 1px solid;
+    background-color: rgba(3, 53, 146, 0.8);
+}
+
+.not-avatar {
+    float: left;
+    position: relative;
+    margin-left: 15px;
+    top: 50%;
+    transform: translate(0, -50%);
+
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+
+    width: 30px;
+    height: 30px;
+}
+
+.not-text {
+    float: left;
+    position: relative;
+    margin-left: 15px;
+    line-height: 48px;
+    text-overflow: ellipsis;
+    height: 100%;
+    color: white;
+}
+
+.not-body {
+    position: absolute;
+    bottom: 0;
+    top: 40%;
+
+    height: 60%;
+    width: 100%;
+
+    background-color: rgba(175, 212, 219, 0.2);
+    line-height: 72px;
+    text-align: center;
 }

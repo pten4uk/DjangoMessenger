@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .filters import MessageFilter
-from .serializers import MessageSerializer, ChatSerializer
+from .serializers import MessageSerializer, ChatSerializer, ChatCreateSerializer
 from chat.models import Message, Chat
 
 
@@ -29,4 +29,15 @@ class GetChatAPIView(APIView):
         qs, is_list = self.get_queryset()
         serializer = ChatSerializer(qs, many=is_list)
         return Response(serializer.data)
+
+
+class CreateChatAPIView(APIView):
+    def post(self, request):
+        chat = ChatCreateSerializer(data=request.data)
+
+        if chat.is_valid():
+            obj = chat.save()
+        return Response(status=201)
+
+
 

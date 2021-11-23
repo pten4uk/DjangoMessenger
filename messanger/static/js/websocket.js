@@ -17,9 +17,6 @@ chatSocket.onmessage = (e) => {
     console.log('Новое сообщение');
     data = JSON.parse(e.data);
     console.log(data);
-    let to = (id => {
-        if (data.current_user == id) return `self`;
-        else if (data.other_user == id) return `other`;
-    })(currentUserId);
-    processNewMessage(data, selectedChatId, to);
+
+    processNewMessage(data, selectedChatId);
 }

@@ -39,6 +39,8 @@ let addHTMLforListMessages = (msgs) => {
     containerMessages.className = `textarea-messages`
     containerMessages.innerHTML = messagesHTML;
     blockMessages.append(containerMessages);
+
+    containerMessages.scrollTop = containerMessages.scrollHeight;
 }
 
 let addMessagesInArea = messages => {
@@ -75,12 +77,39 @@ let addNewMessageToHTML = (data, to) => {
     textareaMessages.scrollTop = textareaMessages.scrollHeight;
 }
 
-let processNewMessage = (data, selectedChat, to) => {
+let sendNotification = data => {
+    let container = document.querySelector(`.container`);
+    
+    container.insertAdjacentHTML('afterbegin', `
+    <div class="not-block">
+        <div class="not-header">
+            <div class="not-avatar"></div>
+            <div class="not-text">Имя</div>
+        </div>
+        <div class="not-body">Новое сообщение...</div>
+    </div>
+    `)
+    let notBlock = document.querySelector(`.not-block`);
+    notBlock.addEventListener(`click`, () => {
+        let selectedElem = document.querySelector(
+            '.avatar-circle' +
+            '[data-user-id="' +
+            data.current_user +
+            '"]' 
+        );
+        selectedElem.click();
+    });
+    setTimeout(() => notBlock.remove(), 5000);
+}
+
+let processNewMessage = (data, selectedChat) => {
     if (data.current_user == currentUserId) {
         addNewMessageToHTML(data, 'self');
     } else if (data.other_user == currentUserId) {
         if (selectedChat == data.chat_id) {
             addNewMessageToHTML(data, 'other');
+        } else {
+            sendNotification(data);
         }
     }
 }

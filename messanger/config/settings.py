@@ -123,6 +123,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = 'chat.CustomUser'
+LOGIN_URL = '/messenger/login'
+LOGIN_REDIRECT_URL = '/messenger'
 
 
 # Internationalization
