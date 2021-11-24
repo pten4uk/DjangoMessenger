@@ -35,8 +35,8 @@ class CreateChatAPIView(APIView):
     def post(self, request):
         chat = ChatCreateSerializer(data=request.data)
 
-        if chat.is_valid():
-            obj = chat.save()
+        if chat.is_valid(raise_exception=True):
+            chat.save()
         return Response(status=201)
 
 

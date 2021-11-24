@@ -21,9 +21,20 @@ class ChatSerializer(serializers.ModelSerializer):
 
 
 class ChatCreateSerializer(serializers.ModelSerializer):
-    users = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), many=True)
+    users = serializers.ListField()
 
     class Meta:
         model = Chat
         fields = ['users']
+
+    def validate_users(self, data):
+        pks = []
+        if len(set(data)) == 1:
+            pks.append(data[0])
+        else:
+            pks.append(data[0])
+            pks.append(data[1])
+        print(pks)
+        return pks
+
 

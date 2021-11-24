@@ -17,6 +17,7 @@
 
             <div class="avatars">
                 <div id="current-user" data-user-id="{{ user.id }}" hidden></div>
+                <div id="current-csrf" data-csrf="{% csrf_token %}" hidden></div>
                 {% for user in all_users %}
                     <li class="avatar-block">
                         <div class="avatar-circle" data-user-id="{{ user.id }}">

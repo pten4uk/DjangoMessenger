@@ -34,6 +34,8 @@ for (let avatarCircle of avatarCircles) {
                 selectedChatId = null;
                 blockMessages.innerHTML = ``;
             }
+        } else if (avatarCircle.parentElement.classList.contains(`selected`)) {
+            createChat([currentUserId, otherUserId]);
         }
     })
 }

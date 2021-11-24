@@ -25,16 +25,17 @@ let getListMessages = chatId => {
 }
 
 let createChat = users => {
-    options = {
-        method: 'POST',
-        mode: 'cors',
+    const options = {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
         },
-        body: {
+        body: JSON.stringify({
             "users": users
-        }
+        })
     }
-    fetch(`${window.location.origin}/api/chat_create/`)
-    .then(response)
+    fetch(`${window.location.origin}/api/chat_create/`, options)
+    .then(response => {
+        console.log(response)
+    }).catch(response => console.log(response))
 }

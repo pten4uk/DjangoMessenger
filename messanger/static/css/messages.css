@@ -122,11 +122,13 @@
 
 .textarea-messages {
     position: absolute;
-    top: 0;
-    max-height: 100%;
+    width: 100%;
+    max-height: calc(100% - 10px);
     bottom: 10px;
+
     overflow: hidden;
     overflow-y: auto;
+    
     user-select: text;
 }
 
