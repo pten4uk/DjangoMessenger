@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/block-avatars.css' %}">
     <link rel="stylesheet" href="{% static 'css/messages.css' %}">
@@ -13,14 +14,23 @@
 <body>
 
     <div class="container">
+        {% if user.is_authenticated %}
+        <div class="header">
+            <a href="#"><button class="btn-left">{{ user.username }}</button></a>
+            <a href="{% url 'logout' %}"><button class="btn-right">Выйти</button></a>
+        </div>
+        {% else %}
+
+        {% endif %}
         <div class="main-block">
 
             <div class="avatars">
-                <div id="current-user" data-user-id="{{ user.id }}" hidden></div>
-                <div id="current-csrf" data-csrf="{% csrf_token %}" hidden></div>
+                <input type="hidden" id="current-user" data-user-id="{{ user.id }}">
+
                 {% for user in all_users %}
                     <li class="avatar-block">
-                        <div class="avatar-circle" data-user-id="{{ user.id }}">
+                        <div class="avatar-circle" data-user-id="{{ user.id }}" 
+                        title="{{ user.username }}">
                             <img src="
                                 {% if user.photo %}
                                     {{ user.photo.url }}

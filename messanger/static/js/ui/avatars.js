@@ -35,7 +35,9 @@ for (let avatarCircle of avatarCircles) {
                 blockMessages.innerHTML = ``;
             }
         } else if (avatarCircle.parentElement.classList.contains(`selected`)) {
-            createChat([currentUserId, otherUserId]);
+            let newChat = await createChat([currentUserId, otherUserId]);
+            selectedChatId = newChat.chat_id;
+            addHTMLforEmpty();
         }
     })
 }

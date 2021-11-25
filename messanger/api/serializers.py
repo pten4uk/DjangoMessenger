@@ -25,7 +25,7 @@ class ChatCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Chat
-        fields = ['users']
+        fields = ['users', 'to_self']
 
     def validate_users(self, data):
         pks = []
@@ -34,7 +34,6 @@ class ChatCreateSerializer(serializers.ModelSerializer):
         else:
             pks.append(data[0])
             pks.append(data[1])
-        print(pks)
         return pks
 
 

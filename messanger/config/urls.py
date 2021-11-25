@@ -3,8 +3,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from chat.views import messenger
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', messenger),
     path('messenger/', include('chat.urls')),
     path('api/', include('api.urls')),
 ]

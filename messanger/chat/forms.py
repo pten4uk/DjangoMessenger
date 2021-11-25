@@ -6,8 +6,21 @@ User = get_user_model()
 
 
 class UserCreateForm(forms.ModelForm):
-    password1 = forms.CharField(widget=forms.PasswordInput())
-    password2 = forms.CharField(widget=forms.PasswordInput())
+    username = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Логин'
+    }))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Имя'
+    }))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Фамилия'
+    }))
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={
+        'placeholder': 'Пароль'
+    }))
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={
+        'placeholder': 'Подтверждение пароля'
+    }))
     photo = forms.ImageField(widget=forms.FileInput())
 
     class Meta:

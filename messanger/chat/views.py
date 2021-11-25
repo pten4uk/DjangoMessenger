@@ -47,4 +47,8 @@ class SignUpView(View):
 
 class LoginView(BaseLoginView):
     form_class = LoginForm
-    template_name = 'chat/signup.html'
+    template_name = 'chat/login.html'
+
+
+def messenger(request):
+    return redirect('messenger')
